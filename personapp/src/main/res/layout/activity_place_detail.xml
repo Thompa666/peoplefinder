@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="com.xware.peoplefinder.PlaceDetailActivity">
+<!--
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar1"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        -->
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/detail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+
+        <!-- Button
+            android:text="Home"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/bHome"
+            android:layout_weight="1" / -->
+        <Button
+            android:text="Email"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/bEmail"
+
+            android:layout_marginTop="0dp"
+
+            android:elevation="11dp"/>
+        <Button
+            android:text="Map"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/bShowMap"
+            android:layout_alignRight="@+id/bEmail"
+            android:layout_marginTop="0dp"
+
+            tools:text="Show Map"/>
+        <Button
+            android:text="Call"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/bPhone"
+
+        />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+
+
+
+    <include layout="@layout/place_detail"/>
+<!--
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar1"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <Button
+            android:text="Home"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/bHome"
+
+            android:layout_marginTop="0dp"/>
+        <Button
+            android:text="Show Map"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/bShowMap"
+            android:layout_alignRight="@+id/bEmail"
+
+            android:layout_below="@id/bEmail"
+
+            tools:text="Show Map"/>
+
+        <Button
+            android:text="Send Email"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:id="@+id/bEmail"
+            android:layout_alignRight="@+id/bHome"
+
+            android:layout_below="@id/bHome"
+
+            android:paddingTop="0dp"/>
+    </android.support.design.widget.AppBarLayout>
+    -->
+        <!--
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="0dp"
+            android:layout_height="349dp"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:toolbarId="@+id/toolbar"
+        >
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/detail_toolbar1"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+        - ->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/detail_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_collapseMode="pin"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+    </android.support.design.widget.AppBarLayout>
+
+
+    <! - -
+        <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|start"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@+id/place_detail"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@android:drawable/stat_notify_chat" />
+
+            <TextView
+                android:text="pid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="Name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/name"
+                android:layout_weight="1" />
+
+            <TextView
+                android:text="Description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/description"
+                android:layout_weight="1" />
+            <TextView
+                android:text="Address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/address"
+                android:layout_weight="1" />
+            <TextView
+                android:text="phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/phone"
+                android:layout_weight="1" />
+            <TextView
+                android:text="email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/email"
+                android:layout_weight="1" />
+
+</LinearLayout>
+    -->
+
+</android.support.design.widget.CoordinatorLayout>

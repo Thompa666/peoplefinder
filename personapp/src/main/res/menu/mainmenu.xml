@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+>
+    <item android:id="@+id/home"
+          android:icon="@drawable/home_icon"
+          android:title="@string/home"
+    />
+
+    <item android:id="@+id/add"
+        android:title="@string/add" >
+        <menu>
+            <item android:id="@+id/new_person"
+                android:icon="@drawable/new_person_icon"
+                android:title="@string/new_person" />
+    <!--app:showAsAction="ifRoom" -->
+            <item android:id="@+id/new_place"
+                android:icon="@drawable/new_place_icon"
+                android:title="@string/new_place" />
+            <item android:id="@+id/add_this_place"
+                android:icon="@drawable/ic_addthisplace"
+                android:title="@string/addthisplace" />
+            <item android:id="@+id/add_this_person"
+                android:icon="@drawable/ic_addthisperson"
+                android:title="@string/addthisperson" />
+        </menu>
+    </item>
+    <item android:id="@+id/list"
+        android:title="@string/list" >
+        <menu>
+            <item android:id="@+id/list_people"
+                android:icon="@drawable/list_people_icon"
+                android:title="List People" />
+            <item android:id="@+id/list_places"
+                android:icon="@drawable/list_places_icon"
+                android:title="List Places" />
+
+        </menu>
+    </item>
+
+    <item android:id="@+id/help"
+        android:icon="@drawable/ic_help"
+        android:title="@string/help" />
+
+</menu>
