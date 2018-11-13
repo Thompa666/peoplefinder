@@ -119,7 +119,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.08"
                 android:layout_below="@id/phone"
-                android:text="address"/>
+                android:text="address (123 Maiden lane, San Francisco ,CA,94108)"/>
 
             <EditText
                 android:id="@+id/address"
@@ -129,18 +129,12 @@
                 android:ems="10"
                 android:layout_below="@id/textView8"
                 android:background="@color/lightGray"
-                android:text="US Street Address (123 Maiden lane, San Francisco ,CA,94108)"
+
                 android:inputType="textPostalAddress"/>
 
 
 
-            <Button
-                android:id="@+id/subButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.08"
-                android:layout_below="@id/address"
-                android:text="Button"/>
+
 <!--
 </LinearLayout>
     -->
