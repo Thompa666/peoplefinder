@@ -21,14 +21,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:id="@+id/btnHome"/ -->
-    <Button
+    <!-- Button
         android:id="@+id/fetch_address_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fetch_address"
         android:onClick="fetchAddressButtonHandler"
 
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"/ -->
 
     <TextView
         android:id="@+id/txtAddress"

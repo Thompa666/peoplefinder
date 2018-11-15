@@ -48,7 +48,8 @@
     <string name="new_place">New Place</string>
     <string name="add">Add New</string>
     <string name="list">List</string>
-    <string name="google_maps_key">AIzaSyAu8BnS8V69-OT8kRjDu_BZDevnEofGuzA</string>
+    <string name="google_maps_key_old">AIzaSyAu8BnS8V69-OT8kRjDu_BZDevnEofGuzA</string>
+    <string name="google_maps_key">AIzaSyB5N47QWzHwQqdS0wExvqkQQir0XQ9zIZo</string>
     <string name="title_activity_image_picker">ImagePicker</string>
     <string name="title_activity_phone">PhoneActivity</string>
     <string name="title_activity_mail">MailActivity</string>

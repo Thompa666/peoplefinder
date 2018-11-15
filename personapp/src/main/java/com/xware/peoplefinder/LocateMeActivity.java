@@ -163,7 +163,7 @@ public class LocateMeActivity extends MainMenu implements
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        mFetchAddressButton = (Button) findViewById(R.id.fetch_address_button);
+    //    mFetchAddressButton = (Button) findViewById(R.id.fetch_address_button);
 
       //  homeButton = (Button) findViewById(R.id.btnHome);
         rgroup= (RadioGroup)findViewById(R.id.rg);
@@ -274,6 +274,7 @@ public class LocateMeActivity extends MainMenu implements
      * Runs when user clicks the Fetch Address button. Starts the service to fetch the address if
      * GoogleApiClient is connected.
      */
+    /*
     public void fetchAddressButtonHandler(View view) {
         // We only start the service to fetch the address if GoogleApiClient is connected.
 
@@ -283,6 +284,7 @@ public class LocateMeActivity extends MainMenu implements
         fetchAddress();
 
     }
+    */
     private void fetchAddress(){
         mAddressRequested = true;
         updateUIWidgets();
@@ -502,7 +504,7 @@ public class LocateMeActivity extends MainMenu implements
 
         showToast("Location is "+location.toString());
         addressString.setText(location.getLatitude() +"   "+ location.getLongitude());
-
+        fetchAddress();
         Log.d(TAG, location.toString());
     }
     /**
