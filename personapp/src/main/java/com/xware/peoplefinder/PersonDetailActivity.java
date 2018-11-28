@@ -281,7 +281,7 @@ private Person person;
                     intent.putExtra("firstname", person.firstname);
                     intent.putExtra("lastname", person.lastname);
                     intent.putExtra("contactId", person.intId);
-                    intent.putExtra("sendType","place" );
+                    intent.putExtra("sendType","person" );
                     Log.i(" paths", "base context path " + getBaseContext() + "");
                     try {
                         startActivity(intent);

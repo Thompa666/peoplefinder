@@ -76,10 +76,7 @@ public class AddPictureActivity extends MainMenu {
 
                      firstname = b.getString("firstname");
                      lastname = b.getString("lastname");
-                     address = b.getString("address");
-                     email = b.getString("email");
-                     phone = b.getString("phone");
-                     intId =b.getInt("intId");
+
                 tv2.setText(firstname);
                 tv3.setText(lastname);
             }

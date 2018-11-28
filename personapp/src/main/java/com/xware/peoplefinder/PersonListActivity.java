@@ -346,11 +346,9 @@ catch(java.lang.ArrayIndexOutOfBoundsException e){
             holder.mIdView.setText(mValues.get(position).id);
             holder.mContentView.setText(mValues.get(position).name + " " + mValues.get(position).description);*/
 
-
-        //    holder.mItem = mValues.get(position);
-         //   holder.mIdView.setText(mValues.get(position).id + "");
+          
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(position +  "  rec= " +mValues.get(position).id + "");
+            holder.mIdView.setText(position); // +  "  rec= " +mValues.get(position).id + "");
             holder.mCheckBox.setChecked(false);
             // holder.mContentView.setText(mValues.get(position).content);
                //   holder.mCheckBox.onTouchEvent()
