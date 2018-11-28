@@ -42,8 +42,11 @@ public class addPlaceActivity
             mydb = new DBHelper(this);
         setContentView(R.layout.activity_add_place);
         EditText edtAddress = (EditText) findViewById(R.id.address);
-        if (savedInstanceState != null && savedInstanceState.containsKey("current_address"))
-            edtAddress.setText(savedInstanceState.getString("current_address"));
+  //      if (savedInstanceState != null && savedInstanceState.containsKey("current_address"))
+    //        edtAddress.setText(savedInstanceState.getString("current_address"));
+        String s =getIntent().getStringExtra("current_address");
+        if (s !=null)
+            edtAddress.setText(s);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());

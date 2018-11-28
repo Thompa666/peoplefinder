@@ -3,20 +3,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:orientation="horizontal">
+              android:orientation="horizontal"
+    android:paddingLeft="10dp"
+
+    >
 
     <CheckBox
         android:id="@+id/cbPlace"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/text_margin"
+        android:background="@color/lightGray"
 
-        tools:background="@color/aqua" />
+
+        android:layout_gravity="center"
+
+
+        />
     <TextView
         android:id="@+id/id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:textColor="@color/lightGray"
         android:textAppearance="?attr/textAppearanceListItem" />
 
 
@@ -25,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
-
+        android:textColor="@color/lightGray"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <!--  android:onClick="onContentClick" -->

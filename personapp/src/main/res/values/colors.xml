@@ -3,12 +3,19 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="green">#068954</color>
     <color name="lightGray">#E0E0E0 </color>
     <color name="darkGray">#585858 </color>
-    <color name="medBlue">#00bfff</color>
+    <color name="medBlue">#0090ff</color>
     <color name="aqua">#00ffff</color>
     <color name="darkRed">#800000</color>
+    <color name="frameBackground">#800000</color>
     <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="txtBoxBack">#E0E0E0</color>
+    <color name="txtColor">#E0E0E0</color>
+    <color name="red">#FF333A</color>
+
 
 
 </resources>

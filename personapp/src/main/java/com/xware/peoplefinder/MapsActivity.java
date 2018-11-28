@@ -15,10 +15,12 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import android.Manifest;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
-
+//public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+    public class MapsActivity extends MainMenu implements OnMapReadyCallback {
     private GoogleMap mMap;
     private String address;
     private String mname;
@@ -31,7 +33,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 this.address= (String)b.get("address") ;
         System.out.println("ADDRESS IS " + this.address) ;
         this.mname = (String)b.get("fullname") ;
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    //    toolbar.setTitle(getTitle());
         setContentView(R.layout.activity_maps);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -87,11 +95,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
         else{
-            Address address = geocoder.getFromLocationName(this.address, 1).get(0);
-            // Add a marker in Sydney and move the camera
-            LatLng market = new LatLng(address.getLatitude(), address.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(market).title(mname));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(market));
+            try {
+                Address address = geocoder.getFromLocationName(this.address, 1).get(0);
+                // Add a marker in Sydney and move the camera
+                LatLng market = new LatLng(address.getLatitude(), address.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(market).title(mname));
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(market));
+                mMap.animateCamera(CameraUpdateFactory.zoomTo(12));
+            }
+            catch(Exception e){
+                Toast.makeText(this,"There is something wrong with this address "+this.address ,Toast.LENGTH_LONG) ;
+            }
 
         }
 

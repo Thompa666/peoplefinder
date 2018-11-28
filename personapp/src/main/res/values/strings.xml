@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">People Finder</string>
     <string name="title_person_detail">Person Detail</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Map It</string>
     <string name="title_place_detail">Place Detail</string>
-
+    <string name="title_activity_locate_me">Locate Me</string>
+    <string name="title_activity_home">People Finder</string>
+    <string name="title_activity_mail">Send Mail</string>
     <string-array name="countries_array">
         <item>Afghanistan</item>
         <item>Albania</item>
@@ -27,7 +29,7 @@
         <item>Antarctica</item>
 
     </string-array>
-    <string name="title_activity_locate_me">LocateMeActivity</string>
+
     <string name="pause">Pause</string>
     <string name="resume">Resume</string>
     <string name="fetch_address">Show Nearest Address</string>
@@ -37,13 +39,13 @@
     <string name="no_location_data_provided">No Location data Provided</string>
     <string name="invalid_lat_long_used">Invalid Lat Long used</string>
     <string name="no_address_found">No Address Found</string>
-    <string name="title_activity_home">Home</string>
+
     <string name="help">Help</string>
     <string name="home">Home</string>
-    <string name="addthisplace">add this place</string>
-    <string name="addthisperson">add this person</string>
-    <string name="list_people">list places</string>
-    <string name="list_places">list people</string>
+    <string name="addthisplace">Add this Place</string>
+    <string name="addthisperson">Add this Person</string>
+    <string name="list_people">List Places</string>
+    <string name="list_places">List People</string>
     <string name="new_person">New Person</string>
     <string name="new_place">New Place</string>
     <string name="add">Add New</string>
@@ -52,5 +54,7 @@
     <string name="google_maps_key">AIzaSyB5N47QWzHwQqdS0wExvqkQQir0XQ9zIZo</string>
     <string name="title_activity_image_picker">ImagePicker</string>
     <string name="title_activity_phone">PhoneActivity</string>
-    <string name="title_activity_mail">MailActivity</string>
+    <string name="title_activity_add_picture">AddPictureActivity</string>
+    <string name="title_activity_take_picture">Take a Picture</string>
+
 </resources>

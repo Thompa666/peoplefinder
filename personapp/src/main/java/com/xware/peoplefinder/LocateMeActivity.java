@@ -31,6 +31,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.ResultReceiver;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 //import android.support.v7.app.ActionBarActivity;
@@ -139,6 +141,13 @@ public class LocateMeActivity extends MainMenu implements
     Button homeButton  ;
     FloatingActionButton fab;
     TextView addressString;
+    Long id ;
+    String name ;
+    String description ;
+    String address ;
+    String email ;
+    String phone ;
+    Integer intId ;
 
     /* This defines a request code to send to Google Play services, which is returned in Activity.onActivityResult():
  */
@@ -151,6 +160,7 @@ public class LocateMeActivity extends MainMenu implements
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locate_me);
       //  mLocationAddressTextView = (TextView) findViewById(R.id.location_address_view);
@@ -160,6 +170,12 @@ public class LocateMeActivity extends MainMenu implements
         toolbar.setTitle("Locate me");
         // Show the Up button in the action bar.
         ActionBar actionBar = getSupportActionBar();
+
+        Bundle b = getIntent().getExtras();
+
+
+
+
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
@@ -171,7 +187,7 @@ public class LocateMeActivity extends MainMenu implements
         mAddressRequested = false;
         mAddressOutput = "";
         addAddressButton = (Button) findViewById(R.id.btnAddAddress);
-      //  fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
         addressString= (TextView)findViewById(R.id.txtAddress);
         updateValuesFromBundle(savedInstanceState);
@@ -198,6 +214,10 @@ public class LocateMeActivity extends MainMenu implements
                 Context context = v.getContext();
 
                 if (addresstype.equals("person")) {
+
+                //    arguments.putString("firstname",mAddressOutput);
+                    //   intent.putExtras(arguments);
+
                     intent = new Intent(context, addPersonActivity.class);
                 } else {
                     intent = new Intent(context, addPlaceActivity.class);
@@ -229,15 +249,15 @@ public class LocateMeActivity extends MainMenu implements
         */
 // update address from geo location
      //   fetchAddress();
-/*
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "1)Fetch address to get current location.2)Pick address type. 3)click add address", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "1))Pick address type. 2)click add address", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        */
+
     }
 
     /**
@@ -346,7 +366,7 @@ public class LocateMeActivity extends MainMenu implements
         }
         if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     MY_PERMISSION_ACCESS_FINE_LOCATION);
 
         }
@@ -551,7 +571,7 @@ public class LocateMeActivity extends MainMenu implements
     protected void displayAddressOutput() {
         Intent i = new Intent();
        // i.putExtra(Intent.EXTRA_TEXT, "body of email");
-        addresstype="person";
+     //   addresstype="person";
         try {
             //    Context context = this.getApplication().getContext();
             if (addresstype.equals("person")){
@@ -616,6 +636,7 @@ public class LocateMeActivity extends MainMenu implements
 
     @Override
     public void onLocationChanged(Location location) {
+
         handleNewLocation(location);
     }
 

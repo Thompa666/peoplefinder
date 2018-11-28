@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+
     tools:context="com.xware.peoplefinder.addPlaceActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -34,7 +35,12 @@
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/darkRed"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <include layout="@layout/addplace"/>
 </FrameLayout>

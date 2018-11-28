@@ -17,12 +17,17 @@
             <item android:id="@+id/new_place"
                 android:icon="@drawable/new_place_icon"
                 android:title="@string/new_place" />
+            <item android:id="@+id/add_this_location"
+                android:icon="@drawable/ic_addthisperson"
+                android:title="Add This Location" />
+            <!--
             <item android:id="@+id/add_this_place"
                 android:icon="@drawable/ic_addthisplace"
                 android:title="@string/addthisplace" />
             <item android:id="@+id/add_this_person"
                 android:icon="@drawable/ic_addthisperson"
                 android:title="@string/addthisperson" />
+            -->
         </menu>
     </item>
     <item android:id="@+id/list"

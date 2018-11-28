@@ -3,18 +3,32 @@
               xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    >
     <CheckBox
         android:id="@+id/cbPerson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        tools:background="@color/aqua" />
+        android:layout_margin="0dp"
+
+        android:layout_gravity="center"
+        android:background="@color/lightGray"
+
+        android:colorAccent="@color/aqua"
+        android:textColorSecondary="@color/red"
+
+        android:foregroundTint="@color/lightGray"
+        android:hint=""
+        android:textColorHint="@color/colorPrimary"
+
+         />
     <TextView
         android:id="@+id/id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:textColor="@color/lightGray"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <TextView
@@ -22,5 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
+        android:textColor="@color/lightGray"
         android:textAppearance="?attr/textAppearanceListItem" />
 </LinearLayout>

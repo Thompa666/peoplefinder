@@ -12,7 +12,7 @@
         <item name="colorPrimary">@color/darkRed</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/darkRed</item>
-        <item name="android:windowBackground">@android:color/holo_orange_dark</item>
+        <item name="android:windowBackground">@color/medBlue</item>
         <item name="android:statusBarColor">@color/darkRed</item>
         <item name="android:colorBackground">@android:color/holo_orange_dark</item>
     </style>

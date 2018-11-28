@@ -392,6 +392,7 @@ DBHelper db;
             arguments1.putString("address", holder.mItem.address);
             arguments1.putString("phone", holder.mItem.phone);
             arguments1.putString("email", holder.mItem.email);
+            arguments1.putInt("intId", holder.mItem.intId);
        //   final boolean b = holder.mCheckBox.isChecked();
 
 

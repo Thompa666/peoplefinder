@@ -336,7 +336,7 @@ catch(java.lang.ArrayIndexOutOfBoundsException e){
         }
        private void checkNull(String s){
            if (s ==null){
-               s="";
+               s="null";
            }
        }
         @Override
@@ -399,12 +399,24 @@ catch(java.lang.ArrayIndexOutOfBoundsException e){
                     checkNull(holder.mItem.address);
                     checkNull(holder.mItem.email);
                     checkNull(holder.mItem.phone);
+                if(holder.mItem.firstname.equals("null"))
+                    holder.mItem.firstname="first name is null!";
+
+            if(holder.mItem.lastname.equals("null"))
+                holder.mItem.lastname="last name is null!";
+            if(holder.mItem.email.equals("null"))
+                holder.mItem.email="email is null!";
+            if(holder.mItem.address.equals("null"))
+                holder.mItem.address="address is null!";
+            if(holder.mItem.phone.equals("null"))
+                holder.mItem.phone="phone is null!";
             arguments1.putLong("id", holder.mItem.id);
             arguments1.putString("firstname", holder.mItem.firstname);
             arguments1.putString("lastname", holder.mItem.lastname);
             arguments1.putString("address", holder.mItem.address);
             arguments1.putString("phone", holder.mItem.phone);
             arguments1.putString("email", holder.mItem.email);
+            arguments1.putInt("intId", holder.mItem.intId);
             boolean b = holder.mCheckBox.isChecked();
             Log.i(" checkbox looked at","item marked is "+b);
 

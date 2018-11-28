@@ -22,7 +22,7 @@ public class MainMenu extends AppCompatActivity {
         Context context = MainMenu.this;
 
 
-        Intent intent = new Intent(context, LocateMeActivityOld.class);
+        Intent intent = new Intent(context, LocateMeActivity.class);
         Bundle arguments = new Bundle();
        // arguments.putString(ARG_ITEM_IDp,
          //       getIntent().getStringExtra(ARG_ITEM_IDp));
@@ -120,13 +120,13 @@ public class MainMenu extends AppCompatActivity {
             case R.id.new_place:
                 addPlace();
                 return true;
-            case R.id.add_this_person:
+            case R.id.add_this_location:
                 addCurrentLocation();
                 return true;
-            case R.id.add_this_place:
+         /*   case R.id.add_this_place:
                 addCurrentLocation();
                 return true;
-
+*/
 
             case R.id.help:
                 //     showHelp();

@@ -25,16 +25,16 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-     /*   FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Click a button to get started", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
 
-*/
+
 
 
 
@@ -223,6 +223,18 @@ public class HomeActivity extends AppCompatActivity {
     private void home(){
 
     }
+
+    private void addCurrentLocation(){
+        Context context = HomeActivity.this;
+
+
+        Intent intent = new Intent(context, LocateMeActivity.class);
+        Bundle arguments = new Bundle();
+        // arguments.putString(ARG_ITEM_IDp,
+        //       getIntent().getStringExtra(ARG_ITEM_IDp));
+
+        startActivity(intent);
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu mainmenu) {
         MenuInflater inflater = getMenuInflater();
@@ -246,13 +258,17 @@ public class HomeActivity extends AppCompatActivity {
             case R.id.new_place:
                 addPlace();
                 return true;
+            case R.id.add_this_location:
+                addCurrentLocation();
+                return true;
+                /*
             case R.id.add_this_person:
                 addCurrentLocation("person");
                 return true;
             case R.id.add_this_place:
                 addCurrentLocation("place");
                 return true;
-
+*/
 
             case R.id.help:
            //     showHelp();

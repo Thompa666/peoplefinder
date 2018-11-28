@@ -13,6 +13,7 @@ public class Place {
     public String phone="";
     public String email="";
     public boolean checked;
+    public Integer intId ;
     public Place(){};
     public Place(Long id, String content, String details) {
         this.id = id;
@@ -28,7 +29,16 @@ public class Place {
         this.phone=phone;
 
     }
+    public Place(Long id, String name, String description, String address,String email,String phone,int intId) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.address= address;
+        this.email =email;
+        this.phone=phone;
+        this.intId=intId;
 
+    }
     @Override
     public String toString() {
         return id + " " + name + " " + description + " "+ checked;

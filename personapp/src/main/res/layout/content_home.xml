@@ -14,22 +14,14 @@
     tools:context="com.xware.peoplefinder.HomeActivity"
     tools:showIn="@layout/activity_home">
 
-    <Button
-        android:text="Add Person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="21dp"
-        android:id="@+id/bAddPerson"
-        android:layout_below="@+id/bShowPlaceList"
-        android:layout_alignLeft="@+id/bShowPersonList"
-        android:layout_alignStart="@+id/bShowPersonList"/>
+
     <Button
         android:text="Show People"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="85dp"
         android:layout_marginStart="85dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="35dp"
         android:id="@+id/bShowPersonList"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
@@ -38,11 +30,20 @@
         android:text="Show Places"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="20dp"
         android:id="@+id/bShowPlaceList"
         android:layout_below="@+id/bShowPersonList"
         android:layout_alignLeft="@+id/bAddPerson"
         android:layout_alignStart="@+id/bAddPerson"/>
+    <Button
+        android:text="Add Person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:id="@+id/bAddPerson"
+        android:layout_below="@+id/bShowPlaceList"
+        android:layout_alignLeft="@+id/bShowPersonList"
+        android:layout_alignStart="@+id/bShowPersonList"/>
     <Button
         android:text="Add Place"
         android:layout_width="wrap_content"
@@ -51,12 +52,14 @@
         android:layout_below="@+id/bAddPerson"
         android:layout_alignLeft="@+id/bAddPerson"
         android:layout_alignStart="@+id/bAddPerson"
-        android:layout_marginTop="19dp"/>
+        android:layout_marginTop="20dp"/>
     <Button
         android:text="Find Me"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/bFindMe"
-        android:layout_alignTop="@+id/bAddPlace" android:layout_alignLeft="@+id/bAddPlace"
-        android:layout_alignStart="@+id/bAddPlace" android:layout_marginTop="73dp"/>
+        android:layout_below="@+id/bAddPlace"
+        android:layout_alignLeft="@+id/bAddPlace"
+        android:layout_alignStart="@+id/bAddPlace"
+        android:layout_marginTop="20dp"/>
 </RelativeLayout>

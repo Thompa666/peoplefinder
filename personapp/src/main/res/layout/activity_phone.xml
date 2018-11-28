@@ -4,7 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="20dp"
     android:fitsSystemWindows="true"
     tools:context="com.xware.peoplefinder.PhoneActivity">
 
@@ -24,9 +29,18 @@
             app:title="Phone Contact" />
 
     </android.support.design.widget.AppBarLayout>
-
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/darkRed"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
     <include layout="@layout/content_phone"/>
-
+    </FrameLayout>
     <!-- android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

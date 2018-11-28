@@ -6,8 +6,18 @@
         <item name="colorPrimary">@color/darkRed</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/darkRed</item>
-        <item name="android:windowBackground">@android:color/holo_orange_dark</item>
-        <item name="android:colorBackground">@android:color/holo_orange_dark</item>
+        <!--item name="android:windowBackground">@color/aqua</ item -->
+        <!-- item name="android:colorBackground">@android:color/holo_orange_dark</item -->
+        <item name="android:colorBackground">@color/medBlue</item>
+        <item name="android:windowBackground">@color/medBlue</item>
+        <item name="android:checkboxStyle">@style/MyCheckBoxStyle</item>
+
+    </style>
+
+    <style name="MyCheckBoxStyle" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/green</item>
+        <item name="android:textColorSecondary">@color/red</item>
+        <item name="background">@color/aqua</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -15,8 +25,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="peopelfindertheme" parent="AppTheme" />
 
 </resources>

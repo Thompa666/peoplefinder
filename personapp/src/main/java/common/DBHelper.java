@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
@@ -21,6 +22,7 @@ import com.xware.peoplefinder.entities.Person;
 import com.xware.peoplefinder.entities.Place;
 
 import static com.xware.peoplefinder.R.id.firstname;
+import static com.xware.peoplefinder.R.id.id;
 import static com.xware.peoplefinder.R.id.lastname;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -55,7 +57,11 @@ public class DBHelper extends SQLiteOpenHelper {
       //  db.execSQL("DROP TABLE IF EXISTS contacts");
         db.execSQL(
                 "create table if not exists contacts " +
-                        "(id INTEGER primary key autoincrement, firstname text,lastname text,email text, address text,phone text,ctype text)"
+                "(id INTEGER primary key autoincrement, firstname text,lastname text,email text, address text,phone text,ctype text,intId int)"
+        );
+        db.execSQL(
+                "create table if not exists contactPictures " +
+                        "(id INTEGER primary key autoincrement, contactId int, pictureUrl text)"
         );
       //  db.close();
     }
@@ -108,7 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return id;
     }
-    public long getLastInserted() {
+  /*  public long getLastInserted() {
         SQLiteDatabase db = this.getReadableDatabase();
         String query = "SELECT ROWID from CONTACTS order by ROWID DESC limit 1";
       //  Cursor res =  db.rawQuery(
@@ -119,7 +125,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return lastId;
     }
-
+*/
     public Cursor getData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery( "select * from contacts where id="+id+"", null );
@@ -154,6 +160,7 @@ public class DBHelper extends SQLiteOpenHelper {
         int ret = db.update("contacts", contentValues, "id = ? ", new String[] { 0+"" } );
         return ret;
     }
+
     public Integer deleteContact (Long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete("contacts",
@@ -163,6 +170,7 @@ public class DBHelper extends SQLiteOpenHelper {
 public ArrayList<Person> getAllContacts(){
     return getAllContacts("all");
 }
+
     public ArrayList<Person> getAllContacts(String ctype) {
         ArrayList<Person> array_list = new ArrayList<Person>();
 
@@ -182,12 +190,13 @@ try {
 
         res.getColumnIndex(CONTACTS_COLUMN_ID);
         long id = res.getLong(res.getColumnIndex("id"));
+        int intId=res.getInt(res.getColumnIndex("id"));
         String firstname = res.getString(res.getColumnIndex("firstname"));
         String lastname = res.getString(res.getColumnIndex("lastname"));
         String address = res.getString(res.getColumnIndex("address"));
         String phone = res.getString(res.getColumnIndex("phone"));
         String email = res.getString(res.getColumnIndex("email"));
-        Person p = new Person(id, firstname, lastname, address, email, phone);
+        Person p = new Person(id, firstname, lastname, address, email, phone,intId);
         array_list.add(p);
         //array_list.add(res.getLong(res.getColumnIndex(CONTACTS_COLUMN_ID)  )+"  "+res.getString(   res.getColumnIndex(CONTACTS_COLUMN_NAME)));
         res.moveToNext();
@@ -214,17 +223,48 @@ try {
 
             res.getColumnIndex(CONTACTS_COLUMN_ID);
             long id=res.getInt(res.getColumnIndex("id"));
+            int intId=res.getInt(res.getColumnIndex("id"));
             String firstname=res.getString(res.getColumnIndex("firstname"));
             String lastname=res.getString(res.getColumnIndex("lastname"));
             String address=res.getString(res.getColumnIndex("address"));
             String phone =res.getString(res.getColumnIndex("phone"));
             String email =res.getString(res.getColumnIndex("email"));
-            Place p = new Place(id,firstname,lastname,address,email,phone) ;
+
+            Place p = new Place(id,firstname,lastname,address,email,phone,intId) ;
             array_list.add(p);
             //array_list.add(res.getLong(res.getColumnIndex(CONTACTS_COLUMN_ID)  )+"  "+res.getString(   res.getColumnIndex(CONTACTS_COLUMN_NAME)));
             res.moveToNext();
         }
         return array_list;
+    }
+    public Long insertContactPicture( Integer contactId ,String pictureUrl) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("contactId",contactId);
+        contentValues.put("pictureUrl",pictureUrl);
+
+        long id= db.insert("contactPictures", null, contentValues);
+        if (id < 0) {
+            Log.i("contactPictures FAILED","contactPictures failed !!!!! picturesid ="+id);
+            return -1L;
+        }
+         Log.i("contactPictures","contact picturesid ="+id);
+        return id;
+    }
+    public String getContactImageUrl(int pcontactId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String qstring=      "select pictureUrl from contactPictures where contactId="+pcontactId;
+        Cursor res =  db.rawQuery( qstring, null );
+        res.moveToFirst();
+        if (res.getCount()>0) {
+            String s = res.getString(0);
+            if (s.length() > 5)
+                return s;
+        }
+        else{
+            Log.e("pic query is 0", qstring);
+        }
+        return "";
     }
     /*
    // ex: to store a image in to db
