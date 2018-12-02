@@ -5,7 +5,7 @@ package com.xware.peoplefinder.entities;
  */
 
 
-public class Place {
+public class Place extends Contact{
     public Long id;
     public String name="";
     public String description="";

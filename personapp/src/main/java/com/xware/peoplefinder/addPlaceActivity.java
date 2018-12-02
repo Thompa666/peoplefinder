@@ -3,6 +3,8 @@ package com.xware.peoplefinder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -103,9 +105,9 @@ public class addPlaceActivity
 
                 String response="good" ;
                 // temp diabled smarty streets
-          /*      if (add.length()>3 )
+                if (add.length()>0 )
                     response=validateAdress(add);
-            */
+
                 if (response.equals("good")) {
 
                     Place place = new Place(0L, f1, f2, f3, f4, f5);
@@ -126,32 +128,27 @@ public class addPlaceActivity
 
                         startActivity(intent);
                     } else {
-                        Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Place not added", Toast.LENGTH_LONG).show();
                     }
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //  dispatchTakePictureIntent();
+                Snackbar.make(view, "Address will be validated only if you are in the US." +'\n'+"Any Problems - Try 'Add This Location in Menu", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
     }
 
 
-    //   Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-    //  setSupportActionBar(toolbar);
 
-//            setContentView(R.layout.activity_display_message);
-
-   /*         Intent intent = getIntent();
-            String message = intent.getStringExtra(LocateMeActivity.EXTRA_MESSAGE);
-            TextView textView = new TextView(this);
-            textView.setTextSize(40);
-            textView.setText(message);
-
-            ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_message);
-            layout.addView(textView);
-
-*/
 
 
        /*
@@ -190,13 +187,22 @@ public class addPlaceActivity
         USStreetValidator v =  new USStreetValidator();
         String[] a = add.split(",");
         if (a.length < 4)
-            return "false" ;
+            return "Address Not a Valid US Format" ;
         String street = a[0];
         String city=a[1];
         String region=a[2];
         String zip=a[3];
-        String valid=USStreetValidator.Run(street,  city,  region,zip);
-        return valid;
+        String valid ;
+        Context context = this.getApplicationContext();
+        String locale = context.getResources().getConfiguration().locale.getCountry();
+        Log.e("CURRENT COUNTRY ", "CURRENT COUNTRY IS " + locale);
+        if (locale.equals("US")){
+            valid=USStreetValidator.Run(street,  city,  region,zip);
+            return valid;
+        }
+
+        else
+            return "Address Not Valid" ;
 
     }
     public boolean Update(Place p ) {
@@ -208,37 +214,26 @@ public class addPlaceActivity
                     p.email,
                     p.address,p.phone )==0){
                 return true;
-                //       Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-                //     Intent intent = new Intent(getApplicationContext(),LocateMeActivity.class);
-                //    startActivity(intent);
+
             }
             else{
                 return false;
-                // Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
             }
         } else{
-          /*   long id =mydb.insertContact(p.name,p.description,
-                    p.email,
-                    p.address,p.phone );
-            */
+
             long id =mydb.insertPlace (p.name,p.description,
                     p.email,
                     p.address,p.phone);
             if(id > -1){
                 p.id=id;
                 return true;
-                            /*;{
-                    Toast.makeText(getApplicationContext(), "done",
-                            Toast.LENGTH_SHORT).show();
-                            */
+
             }
             else{
                 return false;
-                //    Toast.makeText(getApplicationContext(), "not done",
-                //         Toast.LENGTH_SHORT).show();
+
             }
-            //   Intent intent = new Intent(getApplicationContext(),LocateMeActivity.class);
-            //  startActivity(intent);
+
         }
     }
 }

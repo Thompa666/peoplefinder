@@ -18,6 +18,8 @@ import android.util.Log;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.xware.peoplefinder.entities.Contact;
 import com.xware.peoplefinder.entities.Person;
 import com.xware.peoplefinder.entities.Place;
 
@@ -206,7 +208,108 @@ try {
         }
         return array_list;
     }
+    public ArrayList<Person> getFilterContacts(String ctype,String searchTerm) {
+        ArrayList<Person> array_list = new ArrayList<Person>();
 
+        //hp = new HashMap();
+        if (searchTerm==null)
+            searchTerm="" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String qstring;
+        String pSearchTerm ="%"+searchTerm+"%" ;
+        if (ctype.equals("person")){
+            if(searchTerm.length()>0)
+                qstring = "select * from contacts where  (firstName like ? or lastName like ?) and ctype='person' "; //,  new String[] {pSearchTerm, pSearchTerm};
+            else
+                qstring = "select * from contacts where ctype='person'";
+        }
+        else if (ctype.equals("place")) {
+            if (searchTerm.length() > 0)
+                qstring = "select * from contacts where ctype = 'place' and (firstName like ? or lastName like ? )";
+            else
+                qstring = "select * from contacts where ctype = 'place'";
+            }
+        else
+         //   ? AND id = ?", new String[] {"David", "2"}
+            qstring= "select * from contacts";
+        Cursor res ;
+        if ((searchTerm!=null)&& searchTerm.length()>0)
+            res =  db.rawQuery( qstring,   new String[] {pSearchTerm, pSearchTerm} );
+        else
+            res =  db.rawQuery( qstring,null);
+        res.moveToFirst();
+        try {
+            while (res.isAfterLast() == false) {
+
+                res.getColumnIndex(CONTACTS_COLUMN_ID);
+                long id = res.getLong(res.getColumnIndex("id"));
+                int intId=res.getInt(res.getColumnIndex("id"));
+                String firstname = res.getString(res.getColumnIndex("firstname"));
+                String lastname = res.getString(res.getColumnIndex("lastname"));
+                String address = res.getString(res.getColumnIndex("address"));
+                String phone = res.getString(res.getColumnIndex("phone"));
+                String email = res.getString(res.getColumnIndex("email"));
+                Person p = new Person(id, firstname, lastname, address, email, phone,intId);
+                array_list.add(p);
+                //array_list.add(res.getLong(res.getColumnIndex(CONTACTS_COLUMN_ID)  )+"  "+res.getString(   res.getColumnIndex(CONTACTS_COLUMN_NAME)));
+                res.moveToNext();
+            }
+        }catch(Exception e){
+            System.out.println("ERROR " +e.getMessage());
+        }
+        finally {
+            res.close();
+        }
+        return array_list;
+    }
+
+    public ArrayList<Place> getFilterPlaces(String searchTerm) {
+        ArrayList<Place> array_list = new ArrayList<Place>();
+
+        //hp = new HashMap();
+        if (searchTerm==null)
+            searchTerm="" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        String qstring;
+        String pSearchTerm ="%"+searchTerm+"%" ;
+
+
+            if (searchTerm.length() > 0)
+                qstring = "select * from contacts where ctype = 'place' and (firstName like ? or lastName like ? )";
+            else
+                qstring = "select * from contacts where ctype = 'place'";
+
+
+        Cursor res ;
+        if ((searchTerm!=null)&& searchTerm.length()>0)
+            res =  db.rawQuery( qstring,   new String[] {pSearchTerm, pSearchTerm} );
+        else
+            res =  db.rawQuery( qstring,null);
+        res.moveToFirst();
+        try {
+            while (res.isAfterLast() == false) {
+
+                res.getColumnIndex(CONTACTS_COLUMN_ID);
+                long id = res.getLong(res.getColumnIndex("id"));
+                int intId=res.getInt(res.getColumnIndex("id"));
+                String firstname = res.getString(res.getColumnIndex("firstname"));
+                String lastname = res.getString(res.getColumnIndex("lastname"));
+                String address = res.getString(res.getColumnIndex("address"));
+                String phone = res.getString(res.getColumnIndex("phone"));
+                String email = res.getString(res.getColumnIndex("email"));
+                Place p = new Place(id, firstname, lastname, address, email, phone,intId);
+                array_list.add(p);
+                //array_list.add(res.getLong(res.getColumnIndex(CONTACTS_COLUMN_ID)  )+"  "+res.getString(   res.getColumnIndex(CONTACTS_COLUMN_NAME)));
+                res.moveToNext();
+            }
+        }catch(Exception e){
+            System.out.println("ERROR " +e.getMessage());
+        }
+        finally {
+            res.close();
+        }
+        return array_list;
+    }
     public ArrayList<Place> getAllPlaces(String ctype) {
         ArrayList<Place> array_list = new ArrayList<Place>();
 

@@ -3,6 +3,8 @@ package com.xware.peoplefinder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -91,8 +93,9 @@ public class addPersonActivity
                         EditText vadd= (EditText) findViewById(R.id.address);
                         String  add=   vadd.getText().toString();
                         String response="good" ;
-                        if (add.length()>3 )
+                        if (add.length()>0 )
                             response=validateAdress(add);
+
                         if (response.equals("good")) {
 
                             Person person = new Person(0L, f1, f2, f3, f4, f5);
@@ -114,32 +117,27 @@ public class addPersonActivity
 
                                 startActivity(intent);
                             } else {
-                                Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Person not added", Toast.LENGTH_LONG).show();
                             }
                         }
                             else {
-                                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_LONG).show();
                             }
                     }
                 });
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //  dispatchTakePictureIntent();
+                    Snackbar.make(view, "Address will be validated only if you are in the US." +'\n'+"Any Problems - Try 'Add This Location in Menu", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
             }
 
 
-         //   Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
-          //  setSupportActionBar(toolbar);
 
-//            setContentView(R.layout.activity_display_message);
-
-   /*         Intent intent = getIntent();
-            String message = intent.getStringExtra(LocateMeActivity.EXTRA_MESSAGE);
-            TextView textView = new TextView(this);
-            textView.setTextSize(40);
-            textView.setText(message);
-
-            ViewGroup layout = (ViewGroup) findViewById(R.id.activity_display_message);
-            layout.addView(textView);
-
-*/
 
 
        /*
@@ -175,16 +173,24 @@ public class addPersonActivity
 
  private  String validateAdress(String add) {
 
-     USStreetValidator v =  new USStreetValidator();
+     USStreetValidator v = new USStreetValidator();
      String[] a = add.split(",");
-      if (a.length < 4)
-          return "false" ;
+     if (a.length < 4)
+         return "Address Not a Valid US Format";
      String street = a[0];
-     String city=a[1];
-     String region=a[2];
-     String zip=a[3];
-     String valid=USStreetValidator.Run(street,  city,  region,zip);
+     String city = a[1];
+     String region = a[2];
+     String zip = a[3];
+     String valid ;
+     Context context = this.getApplicationContext();
+     String locale = context.getResources().getConfiguration().locale.getCountry();
+     Log.e("CURRENT COUNTRY ", "CURRENT COUNTRY IS " + locale);
+     if (locale.equals("US")){
+         valid = USStreetValidator.Run(street, city, region, zip);
+     //if (valid)
      return valid;
+     }
+     return "Address not valid";
 
  }
     public boolean Update(Person p ) {
@@ -196,13 +202,10 @@ public class addPersonActivity
                          p.email,
                         p.address,p.phone )>-1){
                     return true;
-             //       Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
-               //     Intent intent = new Intent(getApplicationContext(),LocateMeActivity.class);
-                //    startActivity(intent);
+
                 }
                 else{
                     return false;
-                   // Toast.makeText(getApplicationContext(), "not Updated", Toast.LENGTH_SHORT).show();
                 }
             } else{
                 long id =mydb.insertContact(p.firstname,p.lastname,
@@ -211,17 +214,12 @@ public class addPersonActivity
                 if(id > -1){
                     p.id=id;
                     return true;
-                            /*;{
-                    Toast.makeText(getApplicationContext(), "done",
-                            Toast.LENGTH_SHORT).show();
-                            */
+
                 } else{
                     return false;
-                //    Toast.makeText(getApplicationContext(), "not done",
-                   //         Toast.LENGTH_SHORT).show();
+
                 }
-             //   Intent intent = new Intent(getApplicationContext(),LocateMeActivity.class);
-              //  startActivity(intent);
+
             }
         }
     }

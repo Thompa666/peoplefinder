@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ DBHelper db;
      * device.
      */
     private boolean mTwoPane;
+    String searchTerm;
     public  List<Place> ITEMS;
  //   private  ArrayList<Long> removelist;
     private  ArrayList<Place> removelist;
@@ -76,19 +78,29 @@ DBHelper db;
 
     }
     public  void initPlaceContent(Context c) {
-        //   this.ITEMS = new ArrayList<Place>();
-
-//        DBHelper h =  new DBHelper(c);
 
         this.ITEMS.clear();
 
         removelist.clear();
         DBHelper h =  new DBHelper(c);
         List<Place> places= h.getAllPlaces("place");
+
         for (Place p:places ) {
             this.ITEMS.add(p);
 
-            //        ITEM_MAP.put(p.id, p);
+
+        }
+
+    }
+    public  void initPlaceContent(Context c ,String searchTerm) {
+
+
+        this.ITEMS.clear();
+        removelist.clear();
+        DBHelper h =  new DBHelper(c);
+        List<Place> people= h.getFilterPlaces(searchTerm);
+        for (Place p:people ) {
+            this.ITEMS.add(p);
 
         }
 
@@ -101,29 +113,19 @@ DBHelper db;
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-   //     initPlaceContent(this);
+
         setContentView(R.layout.activity_place_list);
-        //PlaceContent placeContent = new PlaceContent();
-        //  setDummyContent();
-        // get place data
-        initPlaceContent(this);
-       final Place place;
+        final Place place;
         Bundle b = getIntent().getExtras();
-    /*    if (b != null) {
-            String name = b.getString("name");
-            String description = b.getString("description");
-            String address = b.getString("address");
-            String email = b.getString("email");
-            String phone = b.getString("phone");
-            boolean vchecked=b.getBoolean("checked");
 
-
-    //        place = new Place(0L, name, description, address, email, phone);
-        //    place.checked=vchecked;
-         //   placeContent.addItem(place,getApplicationContext()); //addItem(Place item);
+        if (b != null) {
+            searchTerm = b.getString("searchTerm");
+            initPlaceContent(this, searchTerm);
         }
         else
-            place = null; */
+            initPlaceContent(this);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
     //    toolbar.setTitle(getTitle());
@@ -133,21 +135,23 @@ DBHelper db;
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-      /*  Button homeButton = (Button) findViewById(R.id.bHome);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
+
+        Button searchPlaceButton = (Button) findViewById(R.id.bSearch);
+
+        searchPlaceButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-
-
+                EditText tvSearch =(EditText)findViewById(R.id.tvSearch) ;
+                String psearchTerm =tvSearch.getText().toString();
                 Log.i(" paths", "base context path " + getBaseContext() + "");
 
                 Context context = v.getContext();
                 Log.i(" paths", "base context path " + getBaseContext() + "");
 
-                Intent intent = new Intent(context, HomeActivity.class);
-
+                Intent intent = new Intent(context, PlaceListActivity.class);
+                intent.putExtra("searchTerm",psearchTerm);
 
                 startActivity(intent);
 
@@ -155,7 +159,6 @@ DBHelper db;
 
             }
         });
-        */
         Button addPlaceButton = (Button) findViewById(R.id.bAddPlace);
 
         addPlaceButton.setOnClickListener(new View.OnClickListener() {
@@ -263,22 +266,13 @@ DBHelper db;
          //  (SimpleItemRecyclerViewAdapter)((RecyclerView)recyclerView).getAdapter().removeItem(i); //--.getAdapter().notifyItemRemoved(i);
 
             Log.i(" delete ", "DELETED TARGET "  + ii);
-        //    break;
+
 
         }
-     //   ai.clear();
-        //reset list
-     //  initPlaceContent(this);
+
     }
 
-    /*  private void setDummyContent() {
 
-          DummyContent.ITEMS.removeAll(DummyContent.ITEMS) ;
-          DummyContent.DummyItem i1 = new DummyContent.DummyItem(1," dude " ," dude detials");
-
-          DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-      }
-  */
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         recyclerView.setAdapter(new SimpleItemRecyclerViewAdapter(ITEMS));
     }
@@ -445,18 +439,11 @@ DBHelper db;
         }
 
 
-
-
-
-
         private void placeList(){
             Context context =  PlaceListActivity.this;
-
-
             Intent intent = new Intent(context, PlaceListActivity.class);
             Bundle arguments = new Bundle();
-        //    arguments.putLong(ARG_ITEM_ID,
-          //          getIntent().getStringExtra(ARG_ITEM_ID));
+
 
             startActivity(intent);
 
@@ -493,74 +480,7 @@ DBHelper db;
             }
 
 
-           // mContentView.
-             //mContentView.OnClickListener(this);
-            /*
-            imgViewRemoveIcon.setOnClickListener(this);
-            v.setOnClickListener(this);
-            mContentView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    if (mItemClickListener != null) {
-                        mItemClickListener.onItemClick(view, getPosition());
-                    }
-                    return false;
-                }
-            });
 
-
-           // mContentView.OnClickListener(this);
-          //  mContentView.setOnClickListener(new View.OnClickListener() {
-                OnClickListener  {
-                if (listener != null) {
-                   String i=  listener.onItemClicked(getPosition());
-                }
-                @Override
-                public void onClick(View v) {
-                    //Log.d("View: ", v.toString());
-                    //Toast.makeText(v.getContext(), mTextViewTitle.getText() + " position = " + getPosition(), Toast.LENGTH_SHORT).show();
-                    if (v.equals(imgViewRemoveIcon)) {
-                        removeAt(getAdapterPosition());
-                    } else if (mItemClickListener != null) {
-                        mItemClickListener.onItemClick(v, getPosition());
-                    }
-                }
-                }
-         //   })
-            mCheckBox.OnLongClickListener(new View.OnLongClickListener()
-
-            {
-
-                if (listener != null) {
-                    return listener.onItemLongClicked(getPosition());
-                }
-
-
-                return false;
-            }
-
-
-
-
-
-
-
-
-
-
-
-            @Override
-            public String toString() {
-                return super.toString() + " " + mCheckBox.isChecked() + " '" + mContentView.getText() + "'";
-            }
-            public void setOnItemClickListener(final OnItemClickListener mItemClickListener) {
-                this.mItemClickListener = mItemClickListener;
-            }
-            public void remove(int i, ViewHolder vh) {
-                mValues.remove(i);
-                notifyItemRemoved(i);
-            }
-            */
         }
     }
 }

@@ -277,6 +277,7 @@ private DBHelper mydb;
                         intent.putExtra("name", place.name);
                         intent.putExtra("description", place.description);
                         intent.putExtra("contactId", place.intId);
+                        intent.putExtra("intId", place.intId);
                         intent.putExtra("sendType","place" );
                         Log.i(" paths", "base context path " + getBaseContext() + "");
                         try {

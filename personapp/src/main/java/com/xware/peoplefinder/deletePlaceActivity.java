@@ -1,7 +1,9 @@
-package com.xware.peoplefinder.entities;
+package com.xware.peoplefinder;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.xware.peoplefinder.entities.Place;
 
 import common.DBHelper;
 

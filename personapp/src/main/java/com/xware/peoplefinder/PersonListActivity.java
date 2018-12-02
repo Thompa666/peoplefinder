@@ -19,7 +19,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.EditText;
 import com.xware.peoplefinder.entities.Person;
 import com.xware.peoplefinder.entities.Place;
 //import com.xware.peoplefinder.entities.PersonContent;
@@ -49,8 +49,11 @@ public class PersonListActivity extends MainMenu {
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
+    String searchTerm;
     private boolean mTwoPane;
-    public   List<Person> ITEMS ; //= new ArrayList<Person>();
+    public   List<Person> ITEMS ;
+
+    //= new ArrayList<Person>();
     //  public  final List<DummyItem> this = new ArrayList<DummyItem>();
     /**
      * A map of sample (dummy) this, by ID.
@@ -93,36 +96,35 @@ public class PersonListActivity extends MainMenu {
         }
 
     }
+    public  void initPersonContent(Context c,String searchTerm) {
 
+
+        this.ITEMS.clear();
+        removelist.clear();
+        DBHelper h =  new DBHelper(c);
+        List<Person> people= h.getFilterContacts("person",searchTerm);
+        for (Person p:people ) {
+            this.ITEMS.add(p);
+            // COUNT++;
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        initPersonContent(this);
-    //   pc= new PersonContent();
-        // db = new DBHelper(getApplicationContext());
-  //      pc.initPersonContent(this);
-        setContentView(R.layout.activity_person_list);
-     //   ArrayList<Person> p= getPersonListFromDB();
-   /*     for(Person person:p)
-        PersonContent.addItem(person,getApplicationContext());
-        //  setDummyContent();
-        // get person data
-     //  PersonContent.initPersonContent();
-        // this.menu = new MainMenu();
-  //      Bundle b = getIntent().getExtras();
-      /*  if (b != null && b.getString("firstname")!= null) {
-            String firstname = b.getString("firstname");
-            String lastname = b.getString("lastname");
-            String address = b.getString("address");
-            String email = b.getString("email");
-            String phone = b.getString("phone");
 
-
-            Person person = new Person(0L, firstname, lastname, address, email, phone);
-            PersonContent.addItem(person,getApplicationContext()); //addItem(Person item);
+        Bundle b = getIntent().getExtras();
+        if (b != null) {
+            searchTerm = b.getString("searchTerm");
+            initPersonContent(this, searchTerm);
         }
-        */
+        else
+
+        initPersonContent(this);
+
+        setContentView(R.layout.activity_person_list);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
@@ -133,7 +135,25 @@ public class PersonListActivity extends MainMenu {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+        Button searchPersonButton = (Button) findViewById(R.id.bSearch);
 
+        searchPersonButton.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                EditText tvSearch =(EditText)findViewById(R.id.tvSearch) ;
+                String psearchTerm =tvSearch.getText().toString();
+                Log.i(" paths", "base context path " + getBaseContext() + "");
+                Context context = v.getContext();
+                Intent intent = new Intent(context, PersonListActivity.class);
+                intent.putExtra("searchTerm",psearchTerm);
+
+                startActivity(intent);
+
+
+
+            }
+        });
         Button addPersonButton = (Button) findViewById(R.id.bAddPerson);
 
         addPersonButton.setOnClickListener(new OnClickListener() {
@@ -168,29 +188,7 @@ public class PersonListActivity extends MainMenu {
             }
         });
 
-    /*    Button homeButton = (Button) findViewById(R.id.bHome);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-
-                Log.i(" paths", "base context path " + getBaseContext() + "");
-
-                Context context = v.getContext();
-                Log.i(" paths", "base context path " + getBaseContext() + "");
-
-                Intent intent = new Intent(context, HomeActivity.class);
-
-
-                startActivity(intent);
-
-
-
-            }
-        });
-        */
     /*    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 
         fab.setOnClickListener(new OnClickListener() {
@@ -219,38 +217,7 @@ public class PersonListActivity extends MainMenu {
         return db.getAllContacts("person");
         // return null;
     }
-    private void removeFromListFUCKEDFUKIGNUP(ArrayList<Integer> ai) {
-        View recyclerView = findViewById(R.id.place_list);
 
-
-        assert recyclerView != null;
-
-        // setupRecyclerView((RecyclerView) recyclerView);
-        // SimpleItemRecyclerViewAdapter ad = (SimpleItemRecyclerViewAdapter)((RecyclerView)recyclerView).getAdapter();
-        Log.i(" delete ", "REMOVE FROM LIST CALLED ARRAY LIST SIZE = " +ai.size() );
-        //  ArrayList<Integer> ai = new ArrayList<Integer>();
-        if( ai.size() > 0)
-            for (int i = ai.size()-1; i > -1 ; i--) {
-               // Person p =
-
-                int pos=ai.get(i);
-                long ii =  ((RecyclerView)recyclerView).getAdapter().getItemId(pos);
-          //      Long ii = p.id;
-                Log.i(" delete ", "DELETE DB ID = "  + ii);
-                Person p = ITEMS.get(pos);
-                db.deleteContact(p.id);
-           //   int r=  ITEMS.indexOf(p);
-                ITEMS.remove(pos);
-              //  ITEMS.remove(ITEMS.indexOf(p));
-
-                ((RecyclerView)recyclerView).getAdapter().notifyItemRemoved(pos);
-                ((RecyclerView)recyclerView).getAdapter().notifyDataSetChanged();
-
-                Log.i(" delete ", "DELETED TARGET "  + ii);
-
-            }
-
-    }
 
     private void removeFromList(ArrayList<Person> ai) {
         View recyclerView = findViewById(R.id.person_list);
@@ -346,9 +313,9 @@ catch(java.lang.ArrayIndexOutOfBoundsException e){
             holder.mIdView.setText(mValues.get(position).id);
             holder.mContentView.setText(mValues.get(position).name + " " + mValues.get(position).description);*/
 
-          
+
             holder.mItem = mValues.get(position);
-            holder.mIdView.setText(position); // +  "  rec= " +mValues.get(position).id + "");
+            holder.mIdView.setText(position +  "" ); // rec= " +mValues.get(position).id + "");
             holder.mCheckBox.setChecked(false);
             // holder.mContentView.setText(mValues.get(position).content);
                //   holder.mCheckBox.onTouchEvent()
@@ -446,20 +413,11 @@ catch(java.lang.ArrayIndexOutOfBoundsException e){
                                 context.startActivity(intent);
                             }
                         }
-                        /*
-                        else{
-                            if (removelist.indexOf(holder.mItem.id)<0)
-                                removelist.add(holder.mItem.id);
-                            Toast.makeText(v.getContext(),"item marked is"+holder.mItem.id,Toast.LENGTH_SHORT);
-                            Log.i(" checkbox looked at","item not switched !!! is  "+holder.mItem.id);
-                            Log.i(" deleted list ","number of items is   "+ removelist.size());
 
-                        }
-                        */
                     }
                 });
 
-            //}
+
         }
 
         @Override

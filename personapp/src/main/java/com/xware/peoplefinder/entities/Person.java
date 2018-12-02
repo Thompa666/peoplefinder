@@ -4,7 +4,7 @@ package com.xware.peoplefinder.entities;
  * Created by paul on 1/2/17.
  */
 
-public class Person {
+public class Person extends Contact{
     public Long id;
     public String firstname="";
     public String lastname="";

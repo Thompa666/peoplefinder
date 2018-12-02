@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-
-    android:layout_height="wrap_content"
-
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     tools:context="com.xware.peoplefinder.PersonListActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -61,16 +61,44 @@
             android:id="@+id/bAddPerson"
             android:layout_weight="1" />
         </android.widget.LinearLayout >
+        <android.widget.LinearLayout
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+            <Button
+                android:id="@+id/bSearch"
+                android:text="Search "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            />
+            <EditText
+                android:hint="put search term here"
+                android:textColorHint="@color/darkRed"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSearch"
+                android:inputType="text"
+                android:background="@color/lightGray"
+                android:textColor="@color/black"
+                android:layout_margin="5dp"
+             />
+
+        </android.widget.LinearLayout >
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <include layout="@layout/person_list" />
     </FrameLayout>
+
     <!--
     <FrameLayout
         android:id="@+id/person_detail_container"

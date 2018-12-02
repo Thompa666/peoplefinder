@@ -16,6 +16,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
+    android:layout_marginBottom="20dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.xware.peoplefinder.PersonListActivity"
     tools:listitem="@layout/person_list_content"

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -71,7 +72,7 @@ public class AddPictureActivity extends MainMenu {
             address = b.getString("address");
             email = b.getString("email");
             phone = b.getString("phone");
-            intId =b.getInt("intId");
+            intId =b.getInt("contactId");
             if (sendType.equals("person")){
 
                      firstname = b.getString("firstname");
@@ -100,6 +101,14 @@ public class AddPictureActivity extends MainMenu {
             Toast.makeText(this," NO BUNDLE PASSED" , Toast.LENGTH_LONG);
         }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        toolbar.setTitle(getTitle());
+        // Show the Up button in the action bar.
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         mImageView= (ImageView) findViewById(R.id.image1);
         setSupportActionBar(toolbar);
 
@@ -107,7 +116,27 @@ public class AddPictureActivity extends MainMenu {
         btnPic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dispatchTakePictureIntent();
+                Bundle b = new Bundle();
+                Context context = view.getContext();
+                b.putLong("id", contactId);
+                b.putString("address", address);
+                b.putString("phone", phone);
+                b.putString("email", email);
+                b.putString("sendType",sendType);
+                b.putInt("intId",intId);
+                if (sendType.equals("person")) {
+
+                    b.putString("firstname",firstname);
+                    b.putString("lastname", lastname);
+
+                }
+                else if (sendType.equals("place")) {
+                    b.putString("name",pname);
+                    b.putString("description",description);
+
+
+                }
+                dispatchTakePictureIntent(b);
                // Snackbar.make(view, "Click to launch camera ." +'\n'+"You will return here when done.", Snackbar.LENGTH_LONG)
                  //       .setAction("Action", null).show();
             }
@@ -135,6 +164,7 @@ public class AddPictureActivity extends MainMenu {
                     Intent intent =new Intent(context,PersonDetailActivity.class);
                     b.putString("firstname",firstname);
                     b.putString("lastname", lastname);
+                    intent.putExtras(b);
                     try {
                         startActivity(intent);
                     } catch (android.content.ActivityNotFoundException ex) {
@@ -144,8 +174,10 @@ public class AddPictureActivity extends MainMenu {
                 else if (sendType.equals("place")) {
                     b.putString("name",pname);
                     b.putString("description",description);
+
                     Intent intent = new Intent(context, PlaceDetailActivity.class);
                     try {
+                        intent.putExtras(b);
                         startActivity(intent);
                     } catch (android.content.ActivityNotFoundException ex) {
                         Toast.makeText(AddPictureActivity.this, "There is a problem with taking a picture", Toast.LENGTH_SHORT).show();
@@ -155,17 +187,17 @@ public class AddPictureActivity extends MainMenu {
         });
 
 
-/*
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            dispatchTakePictureIntent();
-                Snackbar.make(view, "Click to launch camera ." +'\n'+"You will return here when done.", Snackbar.LENGTH_LONG)
+          //  dispatchTakePictureIntent();
+                Snackbar.make(view, "Click 'Take Picture' to launch camera ." +'\n'+"You will return here when done.", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
-        */
+
 
 
 }
@@ -209,7 +241,7 @@ public class AddPictureActivity extends MainMenu {
     }
     static final int REQUEST_TAKE_PHOTO = 1;
 
-    private void dispatchTakePictureIntent() {
+    private void dispatchTakePictureIntent(Bundle pBundle) {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -227,7 +259,7 @@ public class AddPictureActivity extends MainMenu {
                 Uri photoURI = FileProvider.getUriForFile(this,
                         "com.example.android.fileprovider",
                         photoFile);
-
+                takePictureIntent.putExtras(pBundle);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
